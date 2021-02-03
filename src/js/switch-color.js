@@ -17,13 +17,6 @@ const randomIntegerFromInterval = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1) + min);
 };
 
-// const switchColor = () => {
-//   let idx = randomIntegerFromInterval(0, colors.length - 1);
-//   return (refs.body.style.backgroundColor = colors[idx]);
-// };
-
-// let switchColorId = null;
-
 const switchColor = {
   intervalId: null,
   isActiv: false,
@@ -33,17 +26,19 @@ const switchColor = {
       return;
     }
 
-    (this.isActiv = true),
-      (this.intervalId = setInterval(() => {
-        let idx = randomIntegerFromInterval(0, colors.length - 1);
-        return (refs.body.style.backgroundColor = colors[idx]);
-      }, 1000));
+    this.isActiv = true;
+    refs.startButton.disabled = true;
+    this.intervalId = setInterval(() => {
+      let idx = randomIntegerFromInterval(0, colors.length - 1);
+      return (refs.body.style.backgroundColor = colors[idx]);
+    }, 1000);
   },
 
   stop() {
     clearInterval(this.intervalId);
     this.intervalId = null;
     this.isActiv = false;
+    refs.startButton.disabled = false;
   },
 };
 
